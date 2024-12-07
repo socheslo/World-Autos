@@ -1,0 +1,222 @@
+/* Загальні стилі для сторінки */
+body {
+  background-color: #fffce9;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+/* Заголовок */
+h1 {
+  color: darkblue;
+  font-size: 3rem;
+  font-weight: bold;
+  margin: 1rem auto;
+  text-align: center;
+}
+
+/* Стиль кнопки для додавання транспортного засобу */
+.btn-success {
+  background-color: #28a745;
+  border-color: #28a745;
+  font-size: 1.1rem;
+  padding: 10px 20px;
+  margin-bottom: 20px;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+  border-color: #1e7e34;
+}
+
+/* Стилі для контейнера */
+.container {
+  margin-top: 20px;
+}
+
+/* Стилі для картинок автомобілів */
+img.img-fluid {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Покращення стилю для форми */
+.form-group {
+  margin-bottom: 1rem;
+}
+
+label {
+  font-weight: bold;
+}
+
+select.form-control {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+}
+
+/* Стиль для деталей автомобіля */
+.vehicle-details {
+  font-size: 1.3rem;
+  color: #333;
+}
+
+/* Рік і пробіг на одному рядку */
+.vehicle-details .d-flex {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+}
+
+.vehicle-year, .vehicle-mileage {
+  font-weight: bold;
+  color: black;
+}
+
+.vehicle-mileage {
+  margin-left: 10px; /* Додаємо відступ між роком і пробігом */
+}
+
+/* Стиль для ціни */
+.vehicle-price {
+  color: #F74848; /* Червоний колір для ціни */
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+/* Стиль для опцій */
+.vehicle-options {
+  color: purple;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+/* Стилі для форми та кнопки */
+.form-group label {
+  font-weight: bold;
+}
+
+/* Стилі кнопки для персоналізованого плану платежів */
+.btn-primary {
+  background-color: #003366;
+  border-color: #003366;
+  font-size: 1.1rem;
+  padding: 10px 20px;
+  color: white;
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.btn-primary:hover {
+  background-color: #00224d;
+  border-color: #00224d;
+}
+
+/* Розміщення кнопки по центру */
+.text-center {
+  text-align: center;
+}
+
+/* Окремі стилі для форм логіну та реєстрації */
+body {
+  background-color: #fffce9;
+  font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Стиль форми логіну та реєстрації */
+form, .content {
+  width: 30%;
+  margin: 0px auto;
+  padding: 20px;
+  border: 1px solid #B0C4DE;
+  background: white;
+  border-radius: 0px 0px 10px 10px;
+}
+
+.input-group {
+  margin: 10px 0px 10px 0px;
+}
+
+.input-group label {
+  display: block;
+  text-align: left;
+  margin: 3px;
+}
+
+.input-group input {
+  height: 30px;
+  width: 93%;
+  padding: 5px 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid gray;
+}
+
+.btn {
+  padding: 10px;
+  font-size: 15px;
+  color: white;
+  background: #5F9EA0;
+  border: none;
+  border-radius: 5px;
+}
+
+.error {
+  width: 92%; 
+  margin: 0px auto; 
+  padding: 10px; 
+  border: 1px solid #a94442; 
+  color: #a94442; 
+  background: #f2dede; 
+  border-radius: 5px; 
+  text-align: left;
+}
+
+.success {
+  color: #3c763d; 
+  background: #dff0d8; 
+  border: 1px solid #3c763d;
+  margin-bottom: 20px;
+}
+
+/* Загальні стилі для логіну та реєстрації */
+.header {
+  width: 30%;
+  margin: 50px auto 0px;
+  color: white;
+  background: #5F9EA0;
+  text-align: center;
+  border: 1px solid #B0C4DE;
+  border-bottom: none;
+  border-radius: 10px 10px 0px 0px;
+  padding: 20px;
+}
+
+.input-group input {
+  height: 30px;
+  width: 93%;
+  padding: 5px 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid gray;
+}
+
+.btn {
+  padding: 10px;
+  font-size: 15px;
+  color: white;
+  background: #5F9EA0;
+  border: none;
+  border-radius: 5px;
+}
+
+.success {
+  color: #3c763d;
+  background: #dff0d8;
+  border: 1px solid #3c763d;
+  margin-bottom: 20px;
+}
+
