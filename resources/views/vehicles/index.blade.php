@@ -44,6 +44,7 @@
                         </div>
                     </div>
 
+
                     <form action="{{ route('payment.plan') }}" method="post" class="mt-3">
                         @csrf
                         <input type="hidden" name="make" value="{{ $vehicle->make }}">
