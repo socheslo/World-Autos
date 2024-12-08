@@ -7,35 +7,37 @@ use App\Models\Loan;
 
 class LoanController extends Controller
 {
+    // Конструктор для застосування middleware аутентифікації
     public function __construct()
     {
         $this->middleware('auth'); // Захистити цей контролер аутентифікацією (якщо потрібно)
     }
 
+    // Обробка запиту для розрахунку плану погашення
     public function calculatePaymentPlan(Request $request)
     {
-        // Валідація запиту
+        // Валідація вхідних даних
         $validated = $request->validate([
-            'make' => 'required|string',
-            'model' => 'required|string',
-            'price' => 'required|numeric|min:0',
-            'repayment_duration' => 'required|integer|min:1',
-            'interest_rate' => 'required|numeric|min:0',
+            'make' => 'required|string', // Вимога на марку автомобіля
+            'model' => 'required|string', // Вимога на модель автомобіля
+            'price' => 'required|numeric|min:0', // Вимога на ціну автомобіля
+            'repayment_duration' => 'required|integer|min:1', // Вимога на тривалість кредиту (в місяцях)
+            'interest_rate' => 'required|numeric|min:0', // Вимога на процентну ставку
         ]);
 
-        // Розрахунок щомісячного платежу
+        // Виклик функції для розрахунку щомісячного платежу
         $monthlyPayment = $this->calculateMonthlyPayment($validated['price'], $validated['repayment_duration'], $validated['interest_rate']);
         
-        // Розрахунок загальної суми
+        // Розрахунок загальної суми, яку потрібно сплатити
         $totalPayment = $monthlyPayment * $validated['repayment_duration'];
         
-        // Розрахунок загальних відсотків
+        // Розрахунок загальної суми відсотків
         $totalInterest = $totalPayment - $validated['price'];
 
-        // Форматуємо ціну в доларах
+        // Форматування ціни у вигляді доларів з двома знаками після коми
         $priceInDollars = number_format($validated['price'], 2);
 
-        // Зберігаємо дані в базі даних
+        // Збереження даних про кредит в базі даних
         Loan::create([
             'make' => $validated['make'],
             'model' => $validated['model'],
@@ -47,24 +49,25 @@ class LoanController extends Controller
             'total_interest' => $totalInterest,
         ]);
 
-        // Повернення результатів на вигляд
+        // Повернення результатів розрахунку на вигляд для відображення користувачу
         return view('payment-plan', compact('validated', 'monthlyPayment', 'totalPayment', 'totalInterest', 'priceInDollars'));
     }
 
-    // Функція для розрахунку щомісячного платежу
+    // Функція для розрахунку щомісячного платежу за формулою ануїтету
     private function calculateMonthlyPayment($principal, $numMonths, $rate)
     {
-        // Перетворення процентної ставки в місячний коефіцієнт
+        // Перетворення річної процентної ставки в місячну
         $r = $rate / 100 / 12;
         $onePlusRN = pow((1 + $r), $numMonths);
 
-        // Формула для розрахунку щомісячного платежу
+        // Формула для розрахунку щомісячного платежу за ануїтетною схемою
         return $principal * $r * $onePlusRN / ($onePlusRN - 1);
     }
 
-    // Функція для відображення форми
+    // Відображення форми для введення даних користувачем
     public function showForm()
     {
         return view('calculate-payment');
     }
 }
+

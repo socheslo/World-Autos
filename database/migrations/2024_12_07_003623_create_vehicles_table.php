@@ -11,14 +11,29 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('vehicles', function (Blueprint $table) {
-            $table->id(); // Унікальний ідентифікатор
-            $table->string('make'); // Виробник
-            $table->string('model'); // Модель
-            $table->integer('year'); // Рік випуску
-            $table->integer('mileage'); // Пробіг
-            $table->decimal('price', 10, 2); // Ціна
-            $table->string('image'); // Шлях до зображення
-            $table->timestamps(); // Час створення та оновлення
+            // Створюється автоматичний первинний ключ для таблиці (ідентифікатор транспортного засобу)
+            $table->id(); 
+
+            // Створюється стовпець для марки автомобіля
+            $table->string('make'); 
+
+            // Створюється стовпець для моделі автомобіля
+            $table->string('model'); 
+
+            // Створюється стовпець для року випуску автомобіля
+            $table->integer('year'); 
+
+            // Створюється стовпець для пробігу автомобіля
+            $table->integer('mileage'); 
+
+            // Створюється стовпець для ціни автомобіля
+            $table->decimal('price', 10, 2); 
+
+            // Створюється стовпець для шляху до зображення автомобіля
+            $table->string('image'); 
+
+            // Додає автоматичні стовпці для часу створення та оновлення запису
+            $table->timestamps(); 
         });
     }
 
@@ -27,7 +42,9 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('vehicles'); // Видалення таблиці
+        // Якщо таблиця 'vehicles' існує, її можна видалити
+        Schema::dropIfExists('vehicles'); 
     }
 };
+
 

@@ -12,12 +12,23 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('sessions', function (Blueprint $table) {
-            $table->string('id')->primary();
-            $table->foreignId('user_id')->nullable()->index();
-            $table->string('ip_address', 45)->nullable();
-            $table->text('user_agent')->nullable();
-            $table->longText('payload'); // Використовуємо longText
-            $table->integer('last_activity')->index();
+            // Створення первинного ключа для стовпця 'id'
+            $table->string('id')->primary(); 
+
+            // Створення зовнішнього ключа на таблицю 'users', який може бути порожнім (nullable) та індексований
+            $table->foreignId('user_id')->nullable()->index(); 
+
+            // Створення стовпця для зберігання IP-адреси користувача з обмеженням довжини 45 символів
+            $table->string('ip_address', 45)->nullable(); 
+
+            // Створення стовпця для зберігання агента користувача (наприклад, браузера) як текст
+            $table->text('user_agent')->nullable(); 
+
+            // Створення стовпця для зберігання корисних даних сесії. Використовуємо 'longText', оскільки дані можуть бути великими
+            $table->longText('payload'); 
+
+            // Створення індексованого стовпця для часу останньої активності
+            $table->integer('last_activity')->index(); 
         });
     }
 
@@ -26,6 +37,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+        // Якщо таблиця існує, її можна видалити
         Schema::dropIfExists('sessions');
     }
 };

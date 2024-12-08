@@ -47,5 +47,4 @@ Route::get('/fix-passwords', function () {
     }
 
     return 'All passwords checked and fixed if needed.';
-    
 });

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 
 class VehicleController extends Controller
 {
+    // Метод для відображення всіх транспортних засобів
     public function index()
     {
         // Попередньо визначені транспортні засоби
@@ -46,46 +47,50 @@ class VehicleController extends Controller
             ],
         ];
 
-        // Автомобілі, додані користувачами
+        // Транспортні засоби, додані користувачами
         $userVehicles = Vehicle::all();
 
-        // Об'єднання всіх транспортних засобів
+        // Об'єднання стандартних та користувацьких транспортних засобів
         $vehicles = collect($defaultVehicles)->merge($userVehicles);
 
-        // Повернення вигляду
+        // Повернення вигляду з усіма транспортними засобами
         return view('vehicles.index', compact('vehicles'));
     }
 
+    // Метод для відображення форми додавання нового транспортного засобу
     public function showAddVehicleForm()
     {
         return view('vehicles.add');
     }
 
+    // Метод для збереження нового транспортного засобу
     public function storeVehicle(Request $request)
     {
-        // Валідація
+        // Валідація вхідних даних
         $validatedData = $request->validate([
-            'make' => 'required|string',
-            'model' => 'required|string',
-            'year' => 'required|integer|min:1886|max:' . date('Y'),
-            'mileage' => 'required|integer|min:0',
-            'price' => 'required|numeric|min:0',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'make' => 'required|string', // Марка автомобіля повинна бути рядком
+            'model' => 'required|string', // Модель автомобіля повинна бути рядком
+            'year' => 'required|integer|min:1886|max:' . date('Y'), // Рік повинен бути цілим числом між 1886 і поточним роком
+            'mileage' => 'required|integer|min:0', // Пробіг має бути цілим числом і не менше 0
+            'price' => 'required|numeric|min:0', // Ціна повинна бути числом і не менше 0
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Зображення має бути файлом одного з допустимих форматів і не перевищувати 2 МБ
         ]);
 
-        // Збереження зображення
+        // Збереження зображення на сервері
         $path = $request->file('image')->store('vehicles', 'public');
 
-        // Збереження даних у базу
+        // Збереження даних транспортного засобу в базі даних
         Vehicle::create([
-            'make' => $validatedData['make'],
-            'model' => $validatedData['model'],
-            'year' => $validatedData['year'],
-            'mileage' => $validatedData['mileage'],
-            'price' => $validatedData['price'],
-            'image' => $path,
+            'make' => $validatedData['make'], // Марка автомобіля
+            'model' => $validatedData['model'], // Модель автомобіля
+            'year' => $validatedData['year'], // Рік випуску
+            'mileage' => $validatedData['mileage'], // Пробіг
+            'price' => $validatedData['price'], // Ціна
+            'image' => $path, // Шлях до збереженого зображення
         ]);
 
+        // Перенаправлення на головну сторінку з повідомленням про успішне додавання
         return redirect()->route('home')->with('success', 'Vehicle added successfully!');
     }
 }
+
